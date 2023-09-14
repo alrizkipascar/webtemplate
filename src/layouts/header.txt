@@ -1,0 +1,191 @@
+import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
+
+type Dispatcher<S> = Dispatch<SetStateAction<S>>;
+
+interface SideBarProps {
+  children: ReactNode;
+  open: boolean;
+  setOpen: Dispatcher<boolean>;
+}
+
+export default function SideBar({ children, open, setOpen }: SideBarProps) {
+  const location = useRouter();
+  //   const [open, setOpen] = useState(false);
+
+  const currentPages = {
+    "/dashboard": "Dashboard",
+    "/barang": "Barang",
+    "/dokumen": "Document",
+    "/sell": "Sell",
+  };
+  return (
+    <div className="flex">
+      <div
+        className={` ${
+          !open ? "translate-x-0" : "-translate-x-60"
+        }  sticky inset-0 z-50 flex h-auto w-60 flex-col bg-gray-800 p-3 shadow duration-300`}
+      >
+        <div className="space-y-3">
+          <div className={` flex items-center justify-between`}>
+            <h2
+              className={`${open ? "hidden" : ""} text-xl font-bold text-white`}
+            >
+              {currentPages[location?.pathname as keyof typeof currentPages]}
+            </h2>
+            <button onClick={() => setOpen(!open)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className={`${open ? "hidden" : ""} flex-1`}>
+            <ul className="space-y-1 pb-4 pt-2 text-sm">
+              <li className="rounded-sm">
+                <Link
+                  href="/"
+                  className="flex items-center space-x-3 rounded-md p-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-gray-100"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    />
+                  </svg>
+                  <span className="text-gray-100">Dashboard</span>
+                </Link>
+              </li>
+              <li className="rounded-sm">
+                <a
+                  href="/barang"
+                  className="flex items-center space-x-3 rounded-md p-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-gray-100"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                    />
+                  </svg>
+                  <span className="text-gray-100">Barang</span>
+                </a>
+              </li>
+              <li className="rounded-sm">
+                <Link
+                  href="/topic"
+                  className="flex items-center space-x-3 rounded-md p-2"
+                >
+                  <svg
+                    // className="text-gray-100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="lightgray"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    {" "}
+                    <g>
+                      {" "}
+                      <path fill="none" d="M0 0h24v24H0z" />{" "}
+                      <path d="M20 22H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zm-1-2V4H5v16h14zM8 7h8v2H8V7zm0 4h8v2H8v-2zm0 4h8v2H8v-2z" />{" "}
+                    </g>{" "}
+                  </svg>
+
+                  <span className="text-gray-100">Topic</span>
+                </Link>
+              </li>
+              <li className="rounded-sm">
+                <Link
+                  href="/sell"
+                  className="flex items-center space-x-3 rounded-md p-2"
+                >
+                  <svg
+                    className="text-gray-100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    // class="feather feather-dollar-sign"
+                  >
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                  <span className="text-gray-100">Sell</span>
+                </Link>
+              </li>
+              <li className="rounded-sm">
+                <Link
+                  href="/about"
+                  className="flex items-center space-x-3 rounded-md p-2"
+                >
+                  <svg
+                    className="text-gray-100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    // class="feather feather-dollar-sign"
+                  >
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                  <span className="text-gray-100">About</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`absolute inset-0 z-30 h-auto w-auto ${
+          open ? "hidden" : "bg-black opacity-30"
+        } `}
+        onClick={() => void setOpen(!open)}
+      >
+        {" "}
+      </div>
+      {children}
+    </div>
+  );
+}
