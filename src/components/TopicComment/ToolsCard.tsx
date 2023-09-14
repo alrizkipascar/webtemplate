@@ -7,7 +7,7 @@ export default function ToolsCard({
 }: {
   isExpanded: boolean;
   onDelete: () => void;
-  setIsExpanded: () => Dispatch<SetStateAction<boolean>>;
+  setIsExpanded: (isExpanded: boolean) => void;
 }) {
   // const handleAction = (isExpanded:boolean) => {
   //   setIsExpanded(!isExpanded)
