@@ -1,18 +1,13 @@
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import AnonAlert from "~/components/AnonAlert";
-import { NoteCard } from "~/components/NoteCard";
-import { NoteEditor } from "~/components/NoteEditor";
 import { TopicCard } from "~/components/TopicCard";
 import { TopicEditor } from "~/components/TopicEditor";
-import { RouterOutputs, api } from "~/utils/api";
+import { type RouterOutputs, api } from "~/utils/api";
 
 type Topic = RouterOutputs["topic"]["getAll"][0];
 
 export default function Content() {
-  const { data: sessionData } = useSession();
+  // const { data: sessionData } = useSession();
   //   const [code, setCode] = useState<string>("");
   //   const [title, setTitle] = useState<string>("");
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);

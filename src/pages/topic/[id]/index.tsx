@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { RouterOutputs, api } from "~/utils/api";
+import { useMemo, useState } from "react";
+import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NoteCard } from "~/components/NoteCard";
@@ -12,7 +11,6 @@ import { TopicCard } from "~/components/TopicCard";
 
 export default function TopicID() {
   const { data: sessionData } = useSession();
-  const pathname = usePathname();
   const router = useRouter();
   // const id = router?.query?.id;
   const id = useMemo(() => {
@@ -20,7 +18,10 @@ export default function TopicID() {
   }, [router.query?.id]);
   // console.log("id", id);
   const [isLoading, setLoading] = useState(true);
-  const { data: topic, refetch: refetchTopic } = api.topic.getId.useQuery(
+  const {
+    data: topic,
+    // refetch: refetchTopic
+  } = api.topic.getId.useQuery(
     {
       id: id ?? "",
     },

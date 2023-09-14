@@ -1,5 +1,3 @@
-import type { Dispatch, SetStateAction } from "react";
-
 export default function ToolsCard({
   isExpanded,
   onDelete,

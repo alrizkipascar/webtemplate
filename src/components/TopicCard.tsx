@@ -18,7 +18,10 @@ export const TopicCard = ({
   specific: boolean | null;
 }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const { data: ownerTopic, refetch: refetchTopic } = api.user.getId.useQuery(
+  const {
+    data: ownerTopic,
+    // refetch: refetchTopic
+  } = api.user.getId.useQuery(
     {
       id: topic?.userId ?? "",
     },

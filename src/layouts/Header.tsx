@@ -1,6 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Dispatch, ReactNode, SetStateAction, useState } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import SideBar from "./SideBar";
+import Image from "next/image";
 
 type Dispatcher<S> = Dispatch<SetStateAction<S>>;
 
@@ -49,7 +50,7 @@ export const Header = ({ children, open, setOpen }: HeaderProps) => {
                 onClick={() => void signOut()}
               >
                 <div className="w-18 rounded-full">
-                  <img
+                  <Image
                     src={sessionData?.user?.image ?? ""}
                     alt={sessionData?.user?.name ?? ""}
                   />
@@ -57,7 +58,7 @@ export const Header = ({ children, open, setOpen }: HeaderProps) => {
               </label>
             ) : (
               <button
-                className="ghost btn btn rounded-btn"
+                className="ghost  btn rounded-btn"
                 onClick={() => void signIn()}
               >
                 Sign In

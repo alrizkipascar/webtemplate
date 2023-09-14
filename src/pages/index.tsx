@@ -1,15 +1,13 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
-import { Header } from "~/layouts/Header";
 import { api, type RouterOutputs } from "~/utils/api";
 import { NoteCard } from "~/components/NoteCard";
 import { NoteEditor } from "~/components/NoteEditor";
 import AnonAlert from "~/components/AnonAlert";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
   return (
     <>
@@ -81,11 +79,12 @@ const Content: React.FC = () => {
       },
     },
   );
-  const createTopic = api.topic.create.useMutation({
-    onSuccess: () => {
-      void refetchTopics();
-    },
-  });
+  // const createTopic = api.topic.create.useMutation({
+  //   onSuccess: () => {
+  //     void refetchTopics();
+  //   },
+  // });
+
   const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
     {
       topicId: selectedTopic?.id ?? "",

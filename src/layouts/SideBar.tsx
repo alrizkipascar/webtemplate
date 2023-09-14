@@ -1,14 +1,5 @@
-import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import React from "react";
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/router";
-
-type Dispatcher<S> = Dispatch<SetStateAction<S>>;
-
-// interface SideBarProps {
-//   open: boolean;
-//   setOpen: Dispatcher<boolean>;
-// }
 
 export default function SideBar() {
   return (
