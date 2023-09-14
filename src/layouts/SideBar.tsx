@@ -5,21 +5,19 @@ import { useRouter } from "next/router";
 
 type Dispatcher<S> = Dispatch<SetStateAction<S>>;
 
-interface SideBarProps {
-  open: boolean;
-  setOpen: Dispatcher<boolean>;
-}
+// interface SideBarProps {
+//   open: boolean;
+//   setOpen: Dispatcher<boolean>;
+// }
 
-export default function SideBar({ open, setOpen }: SideBarProps) {
+export default function SideBar() {
   return (
     <div className="sticky top-0  flex h-screen w-1/5 justify-center  bg-gray-800 ">
       <div
-        className={` ${
-          !open ? "translate-x-0 " : "translate-x-0"
-        }  h-auto w-full flex-col overflow-auto p-3 `}
+        className={`h-auto w-full translate-x-0 flex-col overflow-auto p-3 `}
       >
         <div className=" space-y-3 ">
-          <div className={`${open ? "" : ""} flex-1`}>
+          <div className={` flex-1`}>
             <ul className="space-y-1 pb-4 pt-2 text-sm">
               <li className="rounded-sm hover:bg-gray-600">
                 <Link

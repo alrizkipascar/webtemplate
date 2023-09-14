@@ -9,12 +9,10 @@ import Link from "next/link";
 type Topic = RouterOutputs["topic"]["getAll"][0];
 
 export const TopicCard = ({
-  user,
   topic,
   onDelete,
   specific,
 }: {
-  user: string;
   topic: Topic;
   onDelete: () => void;
   specific: boolean | null;

@@ -67,8 +67,9 @@ type Topic = RouterOutputs["topic"]["getAll"][0];
 
 const Content: React.FC = () => {
   const { data: sessionData } = useSession();
-  const [code, setCode] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
+  console.log("sessionData", sessionData);
+  // const [code, setCode] = useState<string>("");
+  // const [title, setTitle] = useState<string>("");
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
 
   const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(
@@ -125,7 +126,7 @@ const Content: React.FC = () => {
           ))}
         </ul>
         <div className="divider"></div>
-        <input
+        {/* <input
           type="text"
           placeholder="New Topic"
           className="input input-bordered input-sm w-full"
@@ -137,7 +138,7 @@ const Content: React.FC = () => {
               e.currentTarget.value = "";
             }
           }}
-        />
+        /> */}
       </div>
       <div className="col-span-3">
         <div>

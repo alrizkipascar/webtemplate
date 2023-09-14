@@ -79,7 +79,8 @@ export default function Content() {
             <TopicCard
               key={topic.id}
               topic={topic}
-              user={sessionData?.user?.id}
+              specific={false}
+              // user={sessionData?.user?.id}
               onDelete={() => void deleteTopic.mutate({ id: topic.id })}
             />
             <div className="divider" />

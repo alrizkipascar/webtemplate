@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { RouterOutputs, api } from "~/utils/api";
 import { useSession } from "next-auth/react";
@@ -14,9 +14,11 @@ export default function TopicID() {
   const { data: sessionData } = useSession();
   const pathname = usePathname();
   const router = useRouter();
-  const { id } = router.query;
-  console.log("id", id);
-  // const [data, setData] = useState(null)
+  // const id = router?.query?.id;
+  const id = useMemo(() => {
+    return router.query?.id?.toString?.() ?? "";
+  }, [router.query?.id]);
+  // console.log("id", id);
   const [isLoading, setLoading] = useState(true);
   const { data: topic, refetch: refetchTopic } = api.topic.getId.useQuery(
     {
@@ -71,7 +73,7 @@ export default function TopicID() {
           <TopicCard
             key={topic.id}
             topic={topic}
-            user={sessionData?.user?.id}
+            // user={sessionData?.user?.id}
             specific={true}
             onDelete={() => void deleteTopic.mutate({ id: topic.id })}
           />
