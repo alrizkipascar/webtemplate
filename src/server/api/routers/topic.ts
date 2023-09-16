@@ -7,7 +7,7 @@ import {
 } from "~/server/api/trpc";
 
 export const topicRouter = createTRPCRouter({
-  getAll: protectedProcedure.query(({ ctx }) => {
+  getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.topic.findMany({
       where: {
         userId: ctx?.session?.user?.id,
@@ -15,14 +15,18 @@ export const topicRouter = createTRPCRouter({
     });
   }),
   getAllFront: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.topic.findMany();
+    return ctx.prisma.topic.findMany({
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
     //   {
     //   where: {
     //     userId: ctx.session.id,
     //   },
     // }
   }),
-  getId: protectedProcedure
+  getId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.topic.findUnique({
@@ -62,6 +66,33 @@ export const topicRouter = createTRPCRouter({
       return ctx.prisma.note.delete({
         where: {
           id: input.id,
+        },
+      });
+    }),
+  search: publicProcedure
+    .input(z.object({ search: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return ctx.prisma.topic.findMany({
+        where: {
+          OR: [
+            {
+              content: {
+                contains: input.search,
+                mode: "insensitive",
+              },
+            },
+            {
+              user: {
+                name: {
+                  contains: input.search,
+                  mode: "insensitive",
+                },
+              },
+            },
+          ],
+        },
+        include: {
+          user: true,
         },
       });
     }),

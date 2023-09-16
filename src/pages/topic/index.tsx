@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import AnonAlert from "~/components/AnonAlert";
 import { TopicCard } from "~/components/TopicCard";
 import { TopicEditor } from "~/components/TopicEditor";
 import { type RouterOutputs, api } from "~/utils/api";
@@ -7,7 +8,7 @@ import { type RouterOutputs, api } from "~/utils/api";
 type Topic = RouterOutputs["topic"]["getAll"][0];
 
 export default function Content() {
-  // const { data: sessionData } = useSession();
+  const { data: sessionData } = useSession();
   //   const [code, setCode] = useState<string>("");
   //   const [title, setTitle] = useState<string>("");
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
@@ -52,18 +53,23 @@ export default function Content() {
   //     void refetchNotes();
   //   },
   // });
-
+  console.log("topics", topics);
   return (
     <div className="mx-5 mt-5 grid grid-cols-4 gap-2 ">
       <div className="col-span-3">
-        <TopicEditor
-          onSave={({ title, content }) => {
-            void createTopic.mutate({
-              title,
-              content,
-            });
-          }}
-        />
+        {sessionData?.user !== undefined ? (
+          <TopicEditor
+            onSave={({ title, content }) => {
+              void createTopic.mutate({
+                title,
+                content,
+              });
+            }}
+          />
+        ) : (
+          <AnonAlert />
+        )}
+
         <div className="divider"></div>
         {/* <TopicCard
           topic={selectedTopic}
@@ -75,7 +81,7 @@ export default function Content() {
               key={topic.id}
               topic={topic}
               specific={false}
-              // user={sessionData?.user?.id}
+              user={sessionData?.user?.id ?? ""}
               onDelete={() => void deleteTopic.mutate({ id: topic.id })}
             />
             <div className="divider" />

@@ -53,10 +53,23 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    bio           String?
     accounts      Account[]
     sessions      Session[]
     topics        Topic[]
     notes         Note[]
+    followedBy Follows[] @relation("following")
+    following  Follows[] @relation("follower")
+    liked      TopicLike[] @relation("likes")
+}
+
+model Follows {
+    follower    User @relation("follower", fields: [followerId], references: [id])
+    followerId  String
+    following   User @relation("following", fields: [followingId], references: [id])
+    followingId String
+    
+    @@id([followerId, followingId])
 }
 
 model VerificationToken {
@@ -79,8 +92,17 @@ model Topic {
     notes       Note[]
     image       String?
     tag         String?
+    likeBy      TopicLike[] @relation("likedTopic")
 }
 
+model TopicLike {
+    likes    User @relation("likes", fields: [userId], references: [id])
+    userId  String
+    likedTopic    Topic @relation("likedTopic", fields: [topicId], references: [id])
+    topicId  String
+      @@id([userId, topicId])
+
+}
 
 model Note {
     id          String      @id @default(cuid())

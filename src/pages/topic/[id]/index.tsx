@@ -26,7 +26,7 @@ export default function TopicID() {
       id: id ?? "",
     },
     {
-      enabled: sessionData?.user !== undefined && id !== null,
+      // enabled: sessionData?.user !== undefined && id !== null,
       onSuccess: () => {
         setLoading(false ?? null);
       },
@@ -37,7 +37,7 @@ export default function TopicID() {
       topicId: topic?.id ?? "",
     },
     {
-      enabled: sessionData?.user !== undefined && topic !== null,
+      // enabled: sessionData?.user !== undefined && topic !== null,
     },
   );
 
@@ -74,7 +74,7 @@ export default function TopicID() {
           <TopicCard
             key={topic.id}
             topic={topic}
-            // user={sessionData?.user?.id}
+            user={sessionData?.user?.id ?? ""}
             specific={true}
             onDelete={() => void deleteTopic.mutate({ id: topic.id })}
           />

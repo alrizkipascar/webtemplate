@@ -12,7 +12,7 @@ const config = {
   ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
-    // Feel free to reconfigure them to your own preference.
+    // Feel free to reconfigure them to your own preference. "warn"
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
 
@@ -23,7 +23,8 @@ const config = {
         fixStyle: "inline-type-imports",
       },
     ],
-    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/no-unused-vars": ["off", { argsIgnorePattern: "^_" }],
   },
 };
 

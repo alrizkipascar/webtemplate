@@ -7,7 +7,9 @@ import {
 } from "next-auth";
 // import DiscordProvider from "next-auth/providers/discord";
 import GithubProvider from "next-auth/providers/github";
-import GoogleProfile from "next-auth/providers/google";
+import GoogleProvider from "next-auth/providers/google";
+// import CredentialsProvider from "next-auth/providers";
+// from "next-auth/providers/credentials";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 
@@ -53,10 +55,23 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
-    GoogleProfile({
+    GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
+    // CredentialsProvider({
+    //   name: "credentials",
+    //   credentials: {
+    //     username:{
+    //       label: "Username",
+    //       type: "text",
+    //       placeholder: "username"
+    //     },
+    //   },
+    //   async authorize(credentials){
+
+    //   }
+    // })
     // DiscordProvider({
     //   clientId: env.DISCORD_CLIENT_ID,
     //   clientSecret: env.DISCORD_CLIENT_SECRET,

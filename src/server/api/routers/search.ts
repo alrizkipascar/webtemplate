@@ -6,7 +6,7 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-export const userRouter = createTRPCRouter({
+export const serachRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.user.findMany({});
   }),
@@ -19,17 +19,7 @@ export const userRouter = createTRPCRouter({
         },
       });
     }),
-  // create: protectedProcedure
-  //   .input(z.object({ name: z.string(), content: z.string() }))
-  //   .mutation(({ ctx, input }) => {
-  //     return ctx.prisma.user.create({
-  //       data: {
-  //         name: input.name,
-  //         content: input.content,
-  //         userId: ctx.session.user.id,
-  //       },
-  //     });
-  //   }),
+
   update: protectedProcedure
     .input(z.object({ id: z.string(), name: z.string(), image: z.string() }))
     .mutation(({ ctx, input }) => {

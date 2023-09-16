@@ -5,10 +5,37 @@ import { api, type RouterOutputs } from "~/utils/api";
 import { NoteCard } from "~/components/NoteCard";
 import { NoteEditor } from "~/components/NoteEditor";
 import AnonAlert from "~/components/AnonAlert";
+import TopicStatCard from "~/components/Dashboard/TopicStatCard";
+import Spinner from "~/components/Spinner";
+import { TopicCard } from "~/components/TopicCard";
+import { TopTopic } from "~/components/Dashboard/TopTopic";
 
 export default function Home() {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
+  const { data: sessionData } = useSession();
+
+  const { data: highestComment } =
+    api.dashboard.highestComment.useQuery() ?? "";
+
+  const { data: totalTopic } = api.dashboard.totalTopic.useQuery() ?? "";
+
+  const { data: totalUser } = api.dashboard.totalUser.useQuery() ?? "";
+
+  const {
+    data: topic,
+    // refetch: refetchTopic
+  } = api.topic.getId.useQuery(
+    {
+      id: highestComment ? highestComment[0]?.topicId ?? "" : "",
+    },
+    {
+      // enabled: sessionData?.user !== undefined && id !== null,
+    },
+  );
+  if (!totalTopic && !totalUser && !topic) {
+    return <Spinner />;
+  }
   return (
     <>
       <Head>
@@ -18,7 +45,19 @@ export default function Home() {
       </Head>
       <div>
         {/* <Header/> */}
-        <Content />
+        <TopicStatCard
+          totalPost={totalTopic?._all ?? 0}
+          totalUser={totalUser?._all ?? 0}
+        />
+
+        <div className="divider"></div>
+        <div>
+          <div className="text-lg font-bold text-gray-600">
+            Hot topic - By Count Comment
+          </div>
+          <TopTopic key={topic?.id ?? ""} topic={topic ?? null} />
+        </div>
+        {/* <Content /> */}
       </div>
       {/* <main className=" flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">

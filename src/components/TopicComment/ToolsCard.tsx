@@ -1,8 +1,12 @@
 export default function ToolsCard({
+  user,
+  topicUser,
   isExpanded,
   onDelete,
   setIsExpanded,
 }: {
+  user: string;
+  topicUser: string;
   isExpanded: boolean;
   onDelete: () => void;
   setIsExpanded: (isExpanded: boolean) => void;
@@ -19,13 +23,30 @@ export default function ToolsCard({
           : "hidden"
       }`}
     >
-      <div className="grid-cols-auto grid w-full gap-2 rounded-2xl bg-gray-900">
-        <button className="hover:bg-gray-600">Edit</button>
-        <button onClick={onDelete}>Delete</button>
-        <button className="w-full" onClick={() => setIsExpanded(!isExpanded)}>
-          Close
-        </button>
-      </div>
+      {user == topicUser ? (
+        <div className="grid-cols-auto grid w-full gap-2 rounded-2xl bg-gray-900">
+          <button className="rounded-t-2xl hover:bg-gray-600">Edit</button>
+          <button className=" hover:bg-gray-600" onClick={onDelete}>
+            Deletes
+          </button>
+          <button
+            className="rounded-b-2xl hover:bg-gray-600"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            Close
+          </button>
+        </div>
+      ) : (
+        <div className="grid-cols-auto grid w-full gap-2 rounded-2xl bg-gray-900">
+          <button className="rounded-t-2xl hover:bg-gray-600">Report</button>
+          <button
+            className="rounded-b-2xl hover:bg-gray-600"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            Close
+          </button>
+        </div>
+      )}
     </div>
   );
 }
