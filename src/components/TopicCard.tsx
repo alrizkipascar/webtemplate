@@ -47,8 +47,6 @@ export const TopicCard = ({
     },
   );
 
-  console.log("commentCount", countComment);
-
   return (
     <div className="card mt-5 border bg-base-100 shadow-xl">
       <div className="card-body m-0 p-3">
